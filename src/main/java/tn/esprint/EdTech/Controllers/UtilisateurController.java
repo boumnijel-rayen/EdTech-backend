@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
+import tn.esprint.EdTech.Services.UtilisateurServiceImpl;
 
 import java.util.Collection;
 
@@ -11,30 +12,30 @@ import java.util.Collection;
 @RequestMapping("/user")
 public class UtilisateurController {
     @Autowired
-    UtilisateurRepo utilisateurRepo;
+    UtilisateurServiceImpl utilisateurService;
 
     @PostMapping("/save")
-    public void SaveUser(@RequestBody Utilisateur utilisateur) {
-        utilisateurRepo.save(utilisateur);
+    public Utilisateur SaveUser(@RequestBody Utilisateur utilisateur) {
+        return utilisateurService.addUser(utilisateur);
     }
 
     @PutMapping("/update")
-    public void UpdateUser(@RequestBody Utilisateur utilisateur) {
-        utilisateurRepo.save(utilisateur);
+    public Utilisateur UpdateUser(@RequestBody Utilisateur utilisateur) {
+        return utilisateurService.updateUser(utilisateur);
     }
 
     @DeleteMapping("/delete/{id}")
     public void DeleteUser(@PathVariable long id) {
-        utilisateurRepo.deleteById(id);
+        utilisateurService.deleteUser(id);
     }
 
     @GetMapping("/get/{id}")
     public Utilisateur GetUser(@PathVariable long id) {
-        return utilisateurRepo.findById(id).get();
+        return utilisateurService.getUser(id);
     }
 
     @GetMapping("/getall")
     public Collection<Utilisateur> GetAllUsers() {
-        return utilisateurRepo.findAll();
+        return utilisateurService.getAllUsers();
     }
 }
