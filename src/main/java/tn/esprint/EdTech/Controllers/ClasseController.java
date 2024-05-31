@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Classe;
-import tn.esprint.EdTech.Services.ClasseService;
+import tn.esprint.EdTech.Services.IClasseService;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class ClasseController {
 
     @Autowired
-    private ClasseService classeService;
+    private IClasseService classeService;
 
     @GetMapping
     public List<Classe> getAllClasses() {
