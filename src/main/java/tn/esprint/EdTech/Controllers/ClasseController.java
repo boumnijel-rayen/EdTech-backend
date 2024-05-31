@@ -1,38 +1,45 @@
 package tn.esprint.EdTech.Controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Classe;
-import tn.esprint.EdTech.Services.IClasseService;
+import tn.esprint.EdTech.Services.ClasseService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/classes")
+@RequestMapping("/api/classes")
 public class ClasseController {
 
-  private final IClasseService classeService;
+    @Autowired
+    private ClasseService classeService;
 
-  public ClasseController(IClasseService classeService) {
-    this.classeService = classeService;
-  }
+    @GetMapping
+    public List<Classe> getAllClasses() {
+        return classeService.getAllClasses();
+    }
 
-  @GetMapping("/{id}")
-  public Classe getClasseById(@PathVariable Long id) {
-    return classeService.getClasseById(id);
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
+        Classe classe = classeService.getClasseById(id).orElseThrow(() -> new RuntimeException("Classe not found"));
+        return ResponseEntity.ok(classe);
+    }
 
-  @PostMapping
-  public Classe createClasse(@RequestBody Classe classe) {
-    return classeService.createClasse(classe);
-  }
+    @PostMapping
+    public Classe createClasse(@RequestBody Classe classe) {
+        return classeService.createClasse(classe);
+    }
 
-  @PutMapping("/{id}")
-  public Classe updateClasse(@PathVariable Long id, @RequestBody Classe classe) {
-    return classeService.updateClasse(id, classe);
-  }
+    @PutMapping("update/{id}")
+    public Classe updateClasse(@PathVariable("id") Long id, @RequestBody Classe classe) {
+        classe.setId(id);
+        return classeService.updateClasse(classe);
+    }
 
-  @DeleteMapping("/{id}")
-  public void deleteClasse(@PathVariable Long id) {
-    classeService.deleteClasse(id);
-  }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClasse(@PathVariable Long id) {
+        classeService.deleteClasse(id);
+        return ResponseEntity.noContent().build();
+    }
 }

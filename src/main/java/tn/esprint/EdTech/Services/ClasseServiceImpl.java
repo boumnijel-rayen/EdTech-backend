@@ -1,47 +1,42 @@
 package tn.esprint.EdTech.Services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Classe;
 import tn.esprint.EdTech.Repositories.ClasseRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ClasseServiceImpl implements IClasseService {
+public class ClasseServiceImpl implements ClasseService {
 
-  private final ClasseRepo classeRepo;
+    @Autowired
+    private ClasseRepo classeRepository;
 
-  public ClasseServiceImpl(ClasseRepo classeRepo) {
-    this.classeRepo = classeRepo;
-  }
-
-  @Override
-  public List<Classe> getAllClasses() {
-    return classeRepo.findAll();
-  }
-
-  @Override
-  public Classe getClasseById(Long id) {
-    return classeRepo.findById(id).orElse(null);
-  }
-
-  @Override
-  public Classe createClasse(Classe classe) {
-    return classeRepo.save(classe);
-  }
-
-  @Override
-  public Classe updateClasse(Long id, Classe classe) {
-    if (classeRepo.existsById(id)) {
-      classe.setId(id);
-      return classeRepo.save(classe);
+    @Override
+    public List<Classe> getAllClasses() {
+        return classeRepository.findAll();
     }
-    return null;
-  }
 
-  @Override
-  public void deleteClasse(Long id) {
-    classeRepo.deleteById(id);
-  }
+    @Override
+    public Optional<Classe> getClasseById(Long id) {
+        return classeRepository.findById(id);
+    }
 
+    @Override
+    public Classe createClasse(Classe classe) {
+        return classeRepository.save(classe);
+    }
+
+    @Override
+    public Classe updateClasse(Classe classe) {
+        return classeRepository.save(classe);
+    }
+
+    @Override
+    public void deleteClasse(Long id) {
+        Classe classe = classeRepository.findById(id).orElseThrow(() -> new RuntimeException("Classe not found"));
+        classeRepository.delete(classe);
+    }
 }
