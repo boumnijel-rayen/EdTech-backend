@@ -21,7 +21,7 @@ public class DemandeMenuController {
     }
 
     @GetMapping("/{id}")
-    public Optional<DemandeMenu> getDemandeMenuById(@PathVariable DemandeMenuKey id) {
+    public Optional<DemandeMenu> getDemandeMenuById(@PathVariable Long id) {
         return demandeMenuService.getDemandeMenuById(id);
     }
 
@@ -31,7 +31,7 @@ public class DemandeMenuController {
     }
 
     @PutMapping("/{id}")
-    public DemandeMenu updateDemandeMenu(@PathVariable DemandeMenuKey id, @RequestBody DemandeMenu demandeMenu) {
+    public DemandeMenu updateDemandeMenu(@PathVariable long id, @RequestBody DemandeMenu demandeMenu) {
         Optional<DemandeMenu> existingDemandeMenu = demandeMenuService.getDemandeMenuById(id);
         if (existingDemandeMenu.isPresent()) {
             DemandeMenu updatedDemandeMenu = existingDemandeMenu.get();
@@ -44,7 +44,7 @@ public class DemandeMenuController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDemandeMenu(@PathVariable DemandeMenuKey id) {
+    public void deleteDemandeMenu(@PathVariable long id) {
         demandeMenuService.deleteDemandeMenu(id);
     }
 }

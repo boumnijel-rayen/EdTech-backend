@@ -8,7 +8,12 @@ import java.util.Optional;
 
 public interface IDemandeMenuService {
     List<DemandeMenu> getAllDemandeMenus();
-    Optional<DemandeMenu> getDemandeMenuById(DemandeMenuKey id);
+    Optional<DemandeMenu> getDemandeMenuById(long id);
+
+    Optional<DemandeMenu> getDemandeMenuById(Long id);
+
     DemandeMenu saveDemandeMenu(DemandeMenu demandeMenu);
-    void deleteDemandeMenu(DemandeMenuKey id);
+    void deleteDemandeMenu(long id);
+
+    void deleteDemandeMenu(Long id);
 }
