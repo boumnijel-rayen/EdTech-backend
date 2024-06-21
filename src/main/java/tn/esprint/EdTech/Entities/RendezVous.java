@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class RendezVous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate date;
+    private Date date;
     private String statut;
 
     @ManyToOne
