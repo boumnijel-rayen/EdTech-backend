@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,7 @@ public class Reunion {
     private long id;
     private String sujet;
     private String description;
-    private LocalDate date;
+    private Date date;
 
     @ManyToOne
     private Utilisateur organisateur;

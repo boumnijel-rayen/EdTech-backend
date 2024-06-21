@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -22,5 +23,5 @@ public class Evenement {
     private long id;
     private String nom;
     private String description;
-    private LocalDate date;
+    private Date date;
 }
