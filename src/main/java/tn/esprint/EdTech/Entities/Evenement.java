@@ -23,5 +23,5 @@ public class Evenement {
     private long id;
     private String nom;
     private String description;
-    private Date date;
+    private LocalDate date;
 }

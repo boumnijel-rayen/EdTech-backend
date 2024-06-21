@@ -22,7 +22,7 @@ public class Reunion {
     private long id;
     private String sujet;
     private String description;
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     private Utilisateur organisateur;
