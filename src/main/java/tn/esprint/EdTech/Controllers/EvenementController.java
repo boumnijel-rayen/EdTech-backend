@@ -1,18 +1,24 @@
 package tn.esprint.EdTech.Controllers;
 
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Evenement;
+import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.EvenementRepo;
 import tn.esprint.EdTech.Services.EvenementServiceImpl;
+import tn.esprint.EdTech.Services.IEvenementService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/event")
 public class EvenementController {
-    @Autowired
-    EvenementServiceImpl evenementService;
+
+    IEvenementService evenementService;
 
     @PostMapping("/save")
     public Evenement SaveEvent(@RequestBody Evenement evenement) {
@@ -37,5 +43,11 @@ public class EvenementController {
     @GetMapping("/getall")
     public Collection<Evenement> GetAllEvents() {
         return evenementService.getAllEvents();
+    }
+
+    //CHANGE IT WITH LONGS BETTER
+    @PostMapping("/addOrgTeam")
+    public int insererEquipeOrganisation(@RequestBody Evenement event,@RequestBody List<Utilisateur> users){
+        return evenementService.ajouterEquipeEvenement(event,users);
     }
 }
