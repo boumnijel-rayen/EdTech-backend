@@ -15,7 +15,7 @@ public class ClasseController {
     @Autowired
     private IClasseService classeService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Classe> getAllClasses() {
         return classeService.getAllClasses();
     }

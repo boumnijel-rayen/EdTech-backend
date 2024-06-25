@@ -38,6 +38,7 @@ public class SecurityConfig{
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .requestMatchers("/Niveau/all").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/classes").hasAnyRole("ADMIN")
                                 .requestMatchers(GET, "/Niveau/get/**").hasAnyAuthority("ETUDIANT")
                                 .requestMatchers(POST, "/Niveau/**").hasAnyAuthority("ETUDIANT")
                                 .requestMatchers(PUT, "/Niveau/**").hasAnyAuthority("ENSEIGNANT")
