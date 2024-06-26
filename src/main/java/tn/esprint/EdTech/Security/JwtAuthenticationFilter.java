@@ -23,13 +23,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
+    private static final String[] WHITE_LIST_URL = {"/api/auth/login",
+            "/api/auth/register",
+    };
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        if (request.getServletPath().contains("/api/auth")) {
+        if (check(WHITE_LIST_URL,request.getServletPath())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -57,5 +61,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private static boolean check(String[] arr, String toCheckValue)
+    {
+        boolean test = false;
+        for (String element : arr) {
+            if (element == toCheckValue) {
+                test = true;
+                break;
+            }
+        }
+
+        return test;
     }
 }

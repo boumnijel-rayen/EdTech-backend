@@ -38,4 +38,9 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
     public List<Utilisateur> getAllUsers() {
         return utilisateurRepo.findAll();
     }
+
+    @Override
+    public List<Utilisateur> getUsersExceptVisitors() {
+        return List.of();
+    }
 }
