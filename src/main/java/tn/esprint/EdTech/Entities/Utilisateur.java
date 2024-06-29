@@ -24,6 +24,8 @@ public class Utilisateur implements UserDetails {
     private String prenom;
     private String email;
     private String password;
+    private boolean accountLocked;
+    private boolean enabled;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
