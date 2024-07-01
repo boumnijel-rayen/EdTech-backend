@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Security;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 
 @Configuration
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ApplicationConfig {
 
-    private final UtilisateurRepo repository;
+    UtilisateurRepo repository;
 
     @Bean
     public UserDetailsService userDetailsService() {

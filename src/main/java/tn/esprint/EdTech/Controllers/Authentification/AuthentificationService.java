@@ -1,6 +1,7 @@
 package tn.esprint.EdTech.Controllers.Authentification;
 
 import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Role;
 import tn.esprint.EdTech.Entities.Token;
 import tn.esprint.EdTech.Entities.Utilisateur;
+import tn.esprint.EdTech.Exceptions.*;
 import tn.esprint.EdTech.Repositories.TokenRepo;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 import tn.esprint.EdTech.Security.JwtService;
@@ -22,34 +24,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthentificationService {
 
-    private final UtilisateurRepo utilisateurRepo;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
-    private final EmailService emailService;
-    private final TokenRepo tokenRepo;
-
-//    public AuthenticationResponse register(Utilisateur request) {
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(Role.ETUDIANT);
-//        var user = Utilisateur.builder()
-//                .nom(request.getNom())
-//                .prenom(request.getPrenom())
-//                .email(request.getEmail())
-//                .password(passwordEncoder.encode(request.getPassword()))
-//                .roles(roles)
-//                .build();
-//        utilisateurRepo.save(user);
-//        var jwtToken = jwtService.generateToken(user);
-//        return AuthenticationResponse.builder()
-//                .token(jwtToken)
-//                .build();
-//    }
+    UtilisateurRepo utilisateurRepo;
+    PasswordEncoder passwordEncoder;
+    JwtService jwtService;
+    AuthenticationManager authenticationManager;
+    EmailService emailService;
+    TokenRepo tokenRepo;
 
     public void register(Utilisateur request) throws MessagingException {
+        var userTest = utilisateurRepo.findByEmail(request.getEmail());
+        if(!userTest.isEmpty())
+            throw new forbiddenException("email_existe");
         Set<Role> roles = new HashSet<>();
         roles.add(Role.ETUDIANT);
         var user = Utilisateur.builder()
@@ -65,15 +53,22 @@ public class AuthentificationService {
     }
 
 
-    public AuthenticationResponse login(LoginRequest request) {
+    public AuthenticationResponse login(LoginRequest request) throws MessagingException {
+        var user = utilisateurRepo.findByEmail(request.getEmail())
+                .orElseThrow();
+        if (!user.isEnabled()){
+            tokenRepo.deleteByUserId(user.getId());
+            sendValidationEmail(user);
+            throw new lockedException("Ce compte n'est pas activé un code d'activation a été envoyé par mail");
+        }
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-        var user = utilisateurRepo.findByEmail(request.getEmail())
-                .orElseThrow();
+
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -86,7 +81,7 @@ public class AuthentificationService {
         var token = Token.builder()
                 .token(generatedToken)
                 .createdAt(LocalDateTime.now())
-                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .expiresAt(LocalDateTime.now().plusMinutes(2))
                 .user(user)
                 .build();
         tokenRepo.save(token);
@@ -107,17 +102,22 @@ public class AuthentificationService {
         );
     }
 
-    public AuthenticationResponse activateAccount(String token) throws MessagingException {
+    public AuthenticationResponse activateAccount(String token, String email) throws MessagingException {
+        Utilisateur user = utilisateurRepo.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
         Token savedToken = tokenRepo.findByToken(token)
                 // todo exception has to be defined
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
+                .orElseThrow(() -> new conflictException("Token invalid"));
+
+        if (savedToken.getUser().getId() != user.getId())
+            throw new forbiddenException("Token invalid");
+
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            tokenRepo.deleteByUserId(user.getId());
             sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+            throw new conflictException("Le token d'activation a expiré. Un nouveau token a été envoyé à la même adresse email");
         }
 
-        var user = utilisateurRepo.findById(savedToken.getUser().getId())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
         utilisateurRepo.save(user);
 

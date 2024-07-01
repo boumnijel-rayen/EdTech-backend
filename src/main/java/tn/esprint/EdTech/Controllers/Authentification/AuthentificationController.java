@@ -9,17 +9,10 @@ import tn.esprint.EdTech.Entities.Utilisateur;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthentificationController {
 
-    private final AuthentificationService service;
-
-//    @PostMapping("/register")
-//    public AuthenticationResponse register(
-//            @RequestBody Utilisateur request
-//    ) {
-//        return service.register(request);
-//    }
+    AuthentificationService service;
 
     @PostMapping("/register")
     public void register(
@@ -31,12 +24,12 @@ public class AuthentificationController {
     @PostMapping("/login")
     public AuthenticationResponse authenticate(
             @RequestBody LoginRequest request
-    ) {
+    ) throws MessagingException {
         return service.login(request);
     }
 
-    @PostMapping("/activate/{token}")
-    public AuthenticationResponse activation(@PathVariable("token") String token) throws MessagingException {
-        return service.activateAccount(token);
+    @GetMapping("/activate/{token}/{email}")
+    public AuthenticationResponse activation(@PathVariable("token") String token, @PathVariable("email") String email) throws MessagingException {
+        return service.activateAccount(token, email);
     }
 }
