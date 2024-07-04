@@ -1,18 +1,20 @@
 package tn.esprint.EdTech.Controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
+import tn.esprint.EdTech.Services.IUtilisateurService;
 import tn.esprint.EdTech.Services.UtilisateurServiceImpl;
 
 import java.util.Collection;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/user")
 public class UtilisateurController {
-    @Autowired
-    UtilisateurServiceImpl utilisateurService;
+    IUtilisateurService utilisateurService;
 
     @PostMapping("/save")
     public Utilisateur SaveUser(@RequestBody Utilisateur utilisateur) {

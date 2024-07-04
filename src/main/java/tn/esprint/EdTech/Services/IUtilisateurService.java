@@ -10,4 +10,5 @@ public interface IUtilisateurService {
     public Utilisateur updateUser(Utilisateur utilisateur);
     public Utilisateur getUser(long id);
     public List<Utilisateur> getAllUsers();
+    public List<Utilisateur> getUsersExceptVisitors();
 }

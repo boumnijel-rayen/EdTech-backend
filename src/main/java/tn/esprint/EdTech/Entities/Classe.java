@@ -21,10 +21,8 @@ public class Classe {
     private String specialite;
     private int nbreEtudiant;
     private int nbreCapacite;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
     private Set<Utilisateur> etudiants;
-
     @ManyToOne
     private Niveau niveau;
 }

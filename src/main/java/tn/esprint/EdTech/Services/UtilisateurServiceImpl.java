@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Utilisateur;
@@ -8,9 +9,9 @@ import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UtilisateurServiceImpl implements IUtilisateurService{
 
-    @Autowired
     UtilisateurRepo utilisateurRepo;
 
     @Override
@@ -36,5 +37,10 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
     @Override
     public List<Utilisateur> getAllUsers() {
         return utilisateurRepo.findAll();
+    }
+
+    @Override
+    public List<Utilisateur> getUsersExceptVisitors() {
+        return List.of();
     }
 }
