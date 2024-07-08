@@ -12,4 +12,5 @@ public interface IUtilisateurService {
     public List<Utilisateur> getAllUsers();
     List<Utilisateur> getAllStudents();
     List<Utilisateur> getAllEnseignants();
+    public List<Utilisateur> getUsersExceptVisitors();
 }

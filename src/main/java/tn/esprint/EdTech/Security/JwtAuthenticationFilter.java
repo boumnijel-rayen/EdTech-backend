@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,13 +18,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
+            "/api/auth/activate/**",
             "/rdv/getall",
             "/user/getallenseignants",
             "/user/getallstudents",
@@ -41,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        if (request.getServletPath().contains("/api/auth")) {
+        if (check(WHITE_LIST_URL,request.getServletPath())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -69,5 +71,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private static boolean check(String[] arr, String toCheckValue)
+    {
+        boolean test = false;
+        for (String element : arr) {
+            if (element == toCheckValue) {
+                test = true;
+                break;
+            }
+        }
+
+        return test;
     }
 }

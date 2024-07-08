@@ -63,4 +63,7 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
         return enseignants;
     }
 
+    public List<Utilisateur> getUsersExceptVisitors() {
+        return List.of();
+    }
 }

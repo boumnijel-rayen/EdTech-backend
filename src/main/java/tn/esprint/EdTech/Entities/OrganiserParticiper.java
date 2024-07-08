@@ -16,8 +16,8 @@ import tn.esprint.EdTech.Entities.Keys.OraganiserParticiperKey;
 public class OrganiserParticiper {
     @EmbeddedId
     private OraganiserParticiperKey id_orgpar;
-
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TypeUtilisateurEvenement type;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_user")
@@ -26,4 +26,10 @@ public class OrganiserParticiper {
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_evenement")
     private Evenement evenement;
+
+    public OrganiserParticiper (Utilisateur utilisateur, Evenement evenement, TypeUtilisateurEvenement type) {
+        this.utilisateur = utilisateur;
+        this.evenement = evenement;
+        this.type = type;
+    }
 }
