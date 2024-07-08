@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpMethod.DELETE;
@@ -22,10 +24,19 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig{
-
+public class SecurityConfig {
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
-            "/api/auth/register",};
+            "/api/auth/register",
+            "/rdv/getall",
+            "/user/getallenseignants",
+            "/user/getallstudents",
+            "/user/getall",
+            "/rdv/{id}/status",
+            "/event/save",
+            "/rdv/update",
+            "/rdv/delete/{id}",
+            "/rdv/{id}/status"
+    };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 

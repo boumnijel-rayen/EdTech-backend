@@ -22,6 +22,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private static final String[] WHITE_LIST_URL = {"/api/auth/login",
+            "/api/auth/register",
+            "/rdv/getall",
+            "/user/getallenseignants",
+            "/user/getallstudents",
+            "/user/getall",
+            "/rdv/{id}/status",
+            "/event/save",
+            "/rdv/update",
+            "/rdv/delete/{id}",
+            "/rdv/{id}/status"
+    };
 
     @Override
     protected void doFilterInternal(

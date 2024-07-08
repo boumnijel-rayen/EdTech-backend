@@ -3,9 +3,11 @@ package tn.esprint.EdTech.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.RendezVous;
+import tn.esprint.EdTech.Entities.Status;
 import tn.esprint.EdTech.Repositories.RendezVousRepo;
 
 import java.util.List;
+
 @Service
 public class RendezVousServiceImpl  implements IRendezVousService{
     @Autowired
@@ -34,7 +36,14 @@ public class RendezVousServiceImpl  implements IRendezVousService{
 
     @Override
     public List<RendezVous> getAllRdvs() {
-
         return rendezVousRepo.findAll();
     }
+    @Override
+    public void updateStatus(Long id, Status status) {
+        RendezVous rendezVous = rendezVousRepo.findById(id).orElse(null);
+        assert rendezVous != null;
+        rendezVous.setStatut(status);
+        rendezVousRepo.save(rendezVous);
+    }
+
 }
