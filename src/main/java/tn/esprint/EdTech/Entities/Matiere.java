@@ -27,4 +27,7 @@ public class Matiere {
 
     @ManyToMany (cascade = CascadeType.ALL)
     private Set<Utilisateur> enseignants;
+
+    @ManyToMany (cascade = CascadeType.ALL)
+    private Set<Utilisateur> etudiant;
 }

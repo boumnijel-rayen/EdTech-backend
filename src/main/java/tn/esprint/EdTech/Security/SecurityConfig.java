@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Security;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpMethod.DELETE;
@@ -21,13 +26,17 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig{
 
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
-            "/api/auth/register",};
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
+            "/api/auth/register",
+            "/api/auth/activate/**",
+            "/api/matieres/**",
+            "/api/exams/**"
+    };
+    JwtAuthenticationFilter jwtAuthFilter;
+    AuthenticationProvider authenticationProvider;
 
 
     @Bean
