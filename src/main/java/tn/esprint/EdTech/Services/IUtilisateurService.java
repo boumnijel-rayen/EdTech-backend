@@ -9,6 +9,8 @@ public interface IUtilisateurService {
     public void deleteUser(long id);
     public Utilisateur updateUser(Utilisateur utilisateur);
     public Utilisateur getUser(long id);
+    public Utilisateur getUserByEmail(String email);
     public List<Utilisateur> getAllUsers();
+    public List<Utilisateur> getAllUsersExcepAdmins();
     public List<Utilisateur> getUsersExceptVisitors();
 }

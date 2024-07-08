@@ -36,8 +36,18 @@ public class UtilisateurController {
         return utilisateurService.getUser(id);
     }
 
+    @GetMapping("/getByEmail/{email}")
+    public Utilisateur GetUserByEmail(@PathVariable String email) {
+        return utilisateurService.getUserByEmail(email);
+    }
+
     @GetMapping("/getall")
     public Collection<Utilisateur> GetAllUsers() {
         return utilisateurService.getAllUsers();
+    }
+
+    @GetMapping("/getallExAdmin")
+    public Collection<Utilisateur> GetAllUsersExcepAdmins() {
+        return utilisateurService.getAllUsersExcepAdmins();
     }
 }

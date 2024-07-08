@@ -3,6 +3,7 @@ package tn.esprint.EdTech.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprint.EdTech.Entities.Role;
 import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 
@@ -35,8 +36,20 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
     }
 
     @Override
+    public Utilisateur getUserByEmail(String email) {
+        return utilisateurRepo.findByEmail(email).get();
+    }
+
+    @Override
     public List<Utilisateur> getAllUsers() {
         return utilisateurRepo.findAll();
+    }
+
+    @Override
+    public List<Utilisateur> getAllUsersExcepAdmins() {
+        return utilisateurRepo.findAll().stream()
+                .filter(user -> user.isEnabled() && !user.getRoles().contains(Role.ADMIN))
+                .toList();
     }
 
     @Override
