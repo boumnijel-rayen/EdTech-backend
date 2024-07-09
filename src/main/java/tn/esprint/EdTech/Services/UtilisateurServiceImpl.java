@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Role;
 import tn.esprint.EdTech.Entities.Utilisateur;
+import tn.esprint.EdTech.Exceptions.forbiddenException;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 
 import java.util.List;
@@ -27,7 +28,16 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
 
     @Override
     public Utilisateur updateUser(Utilisateur utilisateur) {
-        return utilisateurRepo.save(utilisateur);
+        var userTest = utilisateurRepo.findByEmail(utilisateur.getEmail());
+        if(!userTest.isEmpty())
+            throw new forbiddenException("email_existe");
+
+        Utilisateur user = utilisateurRepo.findById(utilisateur.getId()).get();
+        user.setNom(utilisateur.getNom());
+        user.setPrenom(utilisateur.getPrenom());
+        user.setEmail(utilisateur.getEmail());
+
+        return utilisateurRepo.save(user);
     }
 
     @Override
@@ -55,5 +65,19 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
     @Override
     public List<Utilisateur> getUsersExceptVisitors() {
         return List.of();
+    }
+
+    @Override
+    public Utilisateur Archiver(long id) {
+        Utilisateur user = utilisateurRepo.findById(id).get();
+        user.setArchived(true);
+        return utilisateurRepo.save(user);
+    }
+
+    @Override
+    public Utilisateur Activer(long id) {
+        Utilisateur user = utilisateurRepo.findById(id).get();
+        user.setArchived(false);
+        return utilisateurRepo.save(user);
     }
 }

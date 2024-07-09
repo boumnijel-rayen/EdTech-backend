@@ -13,4 +13,6 @@ public interface IUtilisateurService {
     public List<Utilisateur> getAllUsers();
     public List<Utilisateur> getAllUsersExcepAdmins();
     public List<Utilisateur> getUsersExceptVisitors();
+    public Utilisateur Archiver(long id);
+    public Utilisateur Activer(long id);
 }

@@ -50,4 +50,14 @@ public class UtilisateurController {
     public Collection<Utilisateur> GetAllUsersExcepAdmins() {
         return utilisateurService.getAllUsersExcepAdmins();
     }
+
+    @GetMapping("/archiver/{id}")
+    public Utilisateur Archiver(@PathVariable("id") long id){
+        return utilisateurService.Archiver(id);
+    }
+
+    @GetMapping("/activer/{id}")
+    public Utilisateur Activer(@PathVariable("id") long id){
+        return utilisateurService.Activer(id);
+    }
 }
