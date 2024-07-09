@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Security;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,17 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig{
 
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
-            "/api/auth/register",};
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
+            "/api/auth/register",
+            "/api/auth/activate/**",
+            "/api/matieres/**",
+            "/api/exams/**"
+    };
+    JwtAuthenticationFilter jwtAuthFilter;
+    AuthenticationProvider authenticationProvider;
 
 
     @Bean

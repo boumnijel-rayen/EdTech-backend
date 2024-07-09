@@ -12,7 +12,7 @@ import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Examen {
+public class  Examen {
     @EmbeddedId
     private ExamenKey id_exam;
     private double note;
@@ -20,6 +20,13 @@ public class Examen {
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_user")
     private Utilisateur etudiant;
+
+    @Column
+    String enonce;
+
+    @Column
+    String travail;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_mat")
