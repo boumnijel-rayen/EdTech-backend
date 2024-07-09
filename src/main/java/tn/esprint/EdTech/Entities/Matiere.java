@@ -21,7 +21,7 @@ public class Matiere {
     private String nom;
     private String description;
 
-    @OneToMany(mappedBy = "matiere")
+    @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Examen> examens;
 
@@ -29,5 +29,5 @@ public class Matiere {
     private Set<Utilisateur> enseignants;
 
     @ManyToMany (cascade = CascadeType.ALL)
-    private Set<Utilisateur> etudiant;
+    private Set<Utilisateur> etudiants;
 }

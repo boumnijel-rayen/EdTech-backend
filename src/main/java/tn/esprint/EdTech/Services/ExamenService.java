@@ -3,7 +3,6 @@ package tn.esprint.EdTech.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Examen;
-import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 import tn.esprint.EdTech.Repositories.ExamenRepo;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class ExamenService implements IExamenService{
         return examenRepository.findAll();
     }
     @Override
-    public Optional<Examen> getExamById(ExamenKey id) {
+    public Optional<Examen> getExamById(Long id) {
         return examenRepository.findById(id);
     }
 
@@ -32,7 +31,7 @@ public class ExamenService implements IExamenService{
         return examenRepository.save(examen);
     }
     @Override
-    public Examen updateExam(ExamenKey id, Examen examenDetails) {
+    public Examen updateExam(Long id, Examen examenDetails) {
         Examen examen = examenRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Examen not found with id " + id));
         examen.setNote(examenDetails.getNote());
@@ -43,7 +42,7 @@ public class ExamenService implements IExamenService{
         return examenRepository.save(examen);
     }
 @Override
-    public void deleteExam(ExamenKey id) {
+    public void deleteExam(Long id) {
         Examen examen = examenRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Examen not found with id " + id));
         examenRepository.delete(examen);

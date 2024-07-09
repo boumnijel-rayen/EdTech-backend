@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Examen;
-import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 import tn.esprint.EdTech.Services.IExamenService;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ExamenController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Examen> getExamById(@PathVariable ExamenKey id) {
+    public ResponseEntity<Examen> getExamById(@PathVariable Long id) {
         return examenService.getExamById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -38,12 +37,12 @@ public class ExamenController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Examen> updateExam(@PathVariable ExamenKey id, @RequestBody Examen examenDetails) {
+    public ResponseEntity<Examen> updateExam(@PathVariable Long id, @RequestBody Examen examenDetails) {
         return ResponseEntity.ok(examenService.updateExam(id, examenDetails));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExam(@PathVariable ExamenKey id) {
+    public ResponseEntity<Void> deleteExam(@PathVariable Long id) {
         examenService.deleteExam(id);
         return ResponseEntity.noContent().build();
     }
