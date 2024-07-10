@@ -39,7 +39,8 @@ public class SecurityConfig {
             "/event/save",
             "/rdv/update",
             "/rdv/delete/{id}",
-            "/rdv/{id}/status"
+            "/rdv/{id}/status",
+            "/rdv/save"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;

@@ -34,7 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/event/save",
             "/rdv/update",
             "/rdv/delete/{id}",
-            "/rdv/{id}/status"
+            "/rdv/{id}/status",
+            "/rdv/save"
     };
 
     @Override

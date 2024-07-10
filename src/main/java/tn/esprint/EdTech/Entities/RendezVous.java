@@ -15,15 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RendezVous implements Serializable {
+public class RendezVous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate date;
     @Enumerated(EnumType.STRING)
     private Status statut;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     @ManyToOne
     private Utilisateur etudiant;
