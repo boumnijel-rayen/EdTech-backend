@@ -14,7 +14,7 @@ public class RepasController {
     @Autowired
     private IRepasService repasService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Repas> getAllRepas() {
         return repasService.getAllRepas();
     }
@@ -24,7 +24,7 @@ public class RepasController {
         return repasService.getRepasById(id);
     }
 
-    @PostMapping
+    @PostMapping("/AddRepas")
     public Repas createRepas(@RequestBody Repas repas) {
         return repasService.saveRepas(repas);
     }
@@ -46,7 +46,7 @@ public class RepasController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteRepas(@PathVariable Long id) {
         repasService.deleteRepas(id);
     }

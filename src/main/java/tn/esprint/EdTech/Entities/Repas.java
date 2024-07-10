@@ -19,10 +19,12 @@ public class Repas {
     private long id;
     private String nom;
     private double calories;
+    @Enumerated(EnumType.STRING)
+    private CategorieRepas Categorie;
     private double poidsCarbs;
     private double poidsProteines;
     private double poidsFats;
+    @Lob
+    private byte[] image;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Menu> menus;
 }

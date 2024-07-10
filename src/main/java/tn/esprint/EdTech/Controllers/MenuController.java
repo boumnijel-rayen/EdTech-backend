@@ -15,17 +15,18 @@ public class MenuController {
         @Autowired
         private IMenuService menuService;
 
-        @GetMapping
+        @GetMapping("/all")
         public List<Menu> getAllMenus() {
+
             return menuService.getAllMenus();
         }
 
-        @GetMapping("/{id}")
+        @GetMapping("/menu/{id}")
         public Optional<Menu> getMenuById(@PathVariable Long id) {
             return menuService.getMenuById(id);
         }
 
-        @PostMapping
+        @PostMapping("/addmenu")
         public Menu createMenu(@RequestBody Menu menu) {
             return menuService.saveMenu(menu);
         }

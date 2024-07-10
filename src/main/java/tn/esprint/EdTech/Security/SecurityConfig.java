@@ -31,7 +31,9 @@ public class SecurityConfig{
 
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
-            "/api/auth/activate/**"
+            "/api/auth/activate/**",
+            "/menus/**",
+            "/repas/**"
     };
     JwtAuthenticationFilter jwtAuthFilter;
     AuthenticationProvider authenticationProvider;
@@ -61,6 +63,8 @@ public class SecurityConfig{
                                 .requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("ETUDIANT")
                                 .requestMatchers(GET, "/user/getall").hasAnyAuthority("ADMIN","ETUDIANT")
                                 .requestMatchers(PUT, "/user/update").hasAnyAuthority("ADMIN", "ENSEIGNANT")
+                               // .requestMatchers(GET,"/repas/all/**").hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT")
+                                //.requestMatchers(GET,"/repas/AddRepas/**").hasAnyAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )
