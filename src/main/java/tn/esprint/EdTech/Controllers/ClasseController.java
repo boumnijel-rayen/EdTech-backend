@@ -15,10 +15,15 @@ public class ClasseController {
     @Autowired
     private IClasseService classeService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Classe> getAllClasses() {
         return classeService.getAllClasses();
     }
+  @PutMapping("/{classeId}/add-etudiant/{email}")
+  public ResponseEntity<Classe> addEtudiantToClasse(@PathVariable Long classeId, @PathVariable String email) {
+    Classe updatedClasse = classeService.addEtudiantToClasse(classeId, email);
+    return ResponseEntity.ok(updatedClasse);
+  }
 
     @GetMapping("/{id}")
     public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
