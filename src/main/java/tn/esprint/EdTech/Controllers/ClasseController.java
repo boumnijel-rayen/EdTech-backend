@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,10 +10,10 @@ import tn.esprint.EdTech.Services.IClasseService;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/classes")
 public class ClasseController {
 
-    @Autowired
     private IClasseService classeService;
 
     @GetMapping("/all")

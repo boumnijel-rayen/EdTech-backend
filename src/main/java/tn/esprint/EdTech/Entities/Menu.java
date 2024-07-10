@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -20,10 +21,16 @@ public class Menu {
     private long id;
     private String nom;
     private String type;
-
+    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate date;
     @OneToMany(mappedBy = "menu")
     private Set<DemandeMenu> demandes;
 
-    @ManyToMany(mappedBy = "menus", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "menu_repas",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "repas_id")
+    )
     private Set<Repas> repas;
 }
