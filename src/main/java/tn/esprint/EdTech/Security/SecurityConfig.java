@@ -26,17 +26,26 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
-public class SecurityConfig{
-
+@RequiredArgsConstructor
+public class SecurityConfig {
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
             "/api/auth/activate/**",
             "/menus/**",
-            "/repas/**"
+            "/repas/**",
+            "/rdv/getall",
+            "/user/getallenseignants",
+            "/user/getallstudents",
+            "/user/getall",
+            "/rdv/{id}/status",
+            "/event/save",
+            "/rdv/update",
+            "/rdv/delete/{id}",
+            "/rdv/{id}/status",
+            "/rdv/save"
     };
-    JwtAuthenticationFilter jwtAuthFilter;
-    AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
 
 
     @Bean

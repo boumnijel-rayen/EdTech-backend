@@ -21,12 +21,21 @@ import java.io.IOException;
 @AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    JwtService jwtService;
-    UserDetailsService userDetailsService;
-
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
-            "/api/auth/activate/**"
+            "/api/auth/activate/**",
+            "/rdv/getall",
+            "/user/getallenseignants",
+            "/user/getallstudents",
+            "/user/getall",
+            "/rdv/{id}/status",
+            "/event/save",
+            "/rdv/update",
+            "/rdv/delete/{id}",
+            "/rdv/{id}/status",
+            "/rdv/save"
     };
 
     @Override

@@ -9,6 +9,7 @@ import tn.esprint.EdTech.Services.IUtilisateurService;
 import tn.esprint.EdTech.Services.UtilisateurServiceImpl;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -57,7 +58,15 @@ public class UtilisateurController {
     }
 
     @GetMapping("/activer/{id}")
-    public Utilisateur Activer(@PathVariable("id") long id){
+    public Utilisateur Activer(@PathVariable("id") long id) {
         return utilisateurService.Activer(id);
+    }
+    @GetMapping("/getallstudents")
+    public List<Utilisateur> getAllStudents() {
+        return utilisateurService.getAllStudents();
+    }
+    @GetMapping("/getallenseignants")
+    public List<Utilisateur> getAllEnseignants() {
+        return utilisateurService.getAllEnseignants();
     }
 }

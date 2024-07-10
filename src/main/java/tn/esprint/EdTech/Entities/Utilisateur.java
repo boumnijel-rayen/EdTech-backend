@@ -47,11 +47,11 @@ public class Utilisateur implements UserDetails {
 
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<RendezVous> RendezvousValides;
+    private Set<RendezVous> participatedRendezVous;
 
     @OneToMany(mappedBy = "validateur", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<RendezVous> RendezvousPasses;
+    private Set<RendezVous> organizedRendezVous;
 
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
@@ -60,6 +60,7 @@ public class Utilisateur implements UserDetails {
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore
     private Set<ParticipationReunion> reunions;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

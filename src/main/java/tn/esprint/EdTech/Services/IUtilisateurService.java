@@ -12,6 +12,8 @@ public interface IUtilisateurService {
     public Utilisateur getUserByEmail(String email);
     public List<Utilisateur> getAllUsers();
     public List<Utilisateur> getAllUsersExcepAdmins();
+    List<Utilisateur> getAllStudents();
+    List<Utilisateur> getAllEnseignants();
     public List<Utilisateur> getUsersExceptVisitors();
     public Utilisateur Archiver(long id);
     public Utilisateur Activer(long id);
