@@ -14,6 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.HttpMethod.DELETE;
@@ -27,14 +30,22 @@ public class SecurityConfig{
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
             "/api/classes/**",
-            "/user/**"
+            "/user/**",};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+      http.cors(cors -> {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(List.of("*"));
+        cors.configurationSource(request -> config);
+      });
+      http
+
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
@@ -44,9 +55,7 @@ public class SecurityConfig{
                                 .requestMatchers(POST, "/Niveau/**").hasAnyAuthority("ETUDIANT")
                                 .requestMatchers(PUT, "/Niveau/**").hasAnyAuthority("ENSEIGNANT")
                                 .requestMatchers(DELETE, "/Niveau/**").hasAnyAuthority("ENSEIGNANT")
-                                .requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("ETUDIANT")
-                                .requestMatchers(PUT, "/user/update").hasAnyAuthority("ETUDIANT")
-                                .requestMatchers(GET, "/user/get/**").hasAnyAuthority("ADMIN","ETUDIANT")
+
                                 .anyRequest()
                                 .authenticated()
                 )

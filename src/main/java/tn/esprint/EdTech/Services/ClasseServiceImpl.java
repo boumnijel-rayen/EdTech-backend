@@ -24,6 +24,8 @@ public class ClasseServiceImpl implements IClasseService {
     this.utilisateurRepository = utilisateurRepository;
   }
 
+
+
   @Override
   public List<Classe> getAllClasses() {
     return classeRepository.findAll();
@@ -64,5 +66,22 @@ public class ClasseServiceImpl implements IClasseService {
 
     utilisateurRepository.save(etudiant);
     return classeRepository.save(classe);
+  }
+
+  @Override
+  public Classe removeEtudiantFromClasse(Long classeId, String email) {
+    Classe classe = classeRepository.findById(classeId)
+      .orElseThrow(() -> new ResourceNotFoundException("Classe not found"));
+
+    Utilisateur etudiant = utilisateurRepository.findByEmail(email)
+      .orElseThrow(() -> new ResourceNotFoundException("Etudiant not found"));
+
+    if (classe.getEtudiants().remove(etudiant)) {
+      etudiant.setClasse(null);
+      utilisateurRepository.save(etudiant);
+      return classeRepository.save(classe);
+    } else {
+      throw new ResourceNotFoundException("Etudiant not found in the specified classe");
+    }
   }
 }

@@ -24,6 +24,11 @@ public class ClasseController {
     Classe updatedClasse = classeService.addEtudiantToClasse(classeId, email);
     return ResponseEntity.ok(updatedClasse);
   }
+  @PutMapping("/{classeId}/remove-etudiant/{email}")
+  public ResponseEntity<Classe> removeEtudiantFromClasse(@PathVariable Long classeId, @PathVariable String email) {
+    Classe updatedClasse = classeService.removeEtudiantFromClasse(classeId, email);
+    return ResponseEntity.ok(updatedClasse);
+  }
 
     @GetMapping("/{id}")
     public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
