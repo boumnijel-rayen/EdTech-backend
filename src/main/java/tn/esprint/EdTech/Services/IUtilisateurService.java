@@ -1,6 +1,9 @@
 package tn.esprint.EdTech.Services;
 
 import tn.esprint.EdTech.Entities.Utilisateur;
+import tn.esprint.EdTech.Models.Chart;
+import tn.esprint.EdTech.Models.ValidationsStats;
+import tn.esprint.EdTech.Models.userStatus;
 
 import java.util.List;
 
@@ -17,4 +20,6 @@ public interface IUtilisateurService {
     public List<Utilisateur> getUsersExceptVisitors();
     public Utilisateur Archiver(long id);
     public Utilisateur Activer(long id);
+    public userStatus getUserStatus();
+    public Chart GetValisationStats();
 }
