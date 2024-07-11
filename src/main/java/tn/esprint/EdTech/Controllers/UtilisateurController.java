@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Utilisateur;
+import tn.esprint.EdTech.Models.Chart;
+import tn.esprint.EdTech.Models.ValidationsStats;
+import tn.esprint.EdTech.Models.userStatus;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 import tn.esprint.EdTech.Services.IUtilisateurService;
 import tn.esprint.EdTech.Services.UtilisateurServiceImpl;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -59,5 +63,15 @@ public class UtilisateurController {
     @GetMapping("/activer/{id}")
     public Utilisateur Activer(@PathVariable("id") long id){
         return utilisateurService.Activer(id);
+    }
+
+    @GetMapping("/stats/userStatus")
+    public userStatus getUserStatus(){
+        return utilisateurService.getUserStatus();
+    }
+
+    @GetMapping("/stats/validStats")
+    public Chart GetValisationStats(){
+        return utilisateurService.GetValisationStats();
     }
 }
