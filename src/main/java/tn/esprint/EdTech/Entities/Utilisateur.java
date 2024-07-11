@@ -30,7 +30,7 @@ public class Utilisateur implements UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Examen> examens;
 

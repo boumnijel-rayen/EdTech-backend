@@ -21,10 +21,13 @@ public class Matiere {
     private String nom;
     private String description;
 
-    @OneToMany(mappedBy = "matiere")
+    @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Examen> examens;
 
     @ManyToMany (cascade = CascadeType.ALL)
     private Set<Utilisateur> enseignants;
+
+    @ManyToMany (cascade = CascadeType.ALL)
+    private Set<Utilisateur> etudiants;
 }

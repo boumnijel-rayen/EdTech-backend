@@ -40,5 +40,10 @@ application:
   file:
     uploads:
       photos-output-path: ./uploads
+minio:
+  url: http://127.0.0.1:9000
+  access-key: Az3xm77xV7CaX56OlKak
+  secret-key: TjvXvW6p4IE20OUcP0T8uVS4bZvawHPb6ANor9be
+  bucket-name: examen
 server:
   port: 8089

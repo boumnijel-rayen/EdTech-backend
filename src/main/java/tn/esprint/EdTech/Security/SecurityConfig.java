@@ -42,7 +42,9 @@ public class SecurityConfig {
             "/rdv/update",
             "/rdv/delete/{id}",
             "/rdv/{id}/status",
-            "/rdv/save"
+            "/rdv/save",
+            "/api/matieres/**",
+            "/api/exams/**"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;

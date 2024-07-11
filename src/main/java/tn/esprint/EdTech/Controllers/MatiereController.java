@@ -17,6 +17,7 @@ public class MatiereController {
 
     @GetMapping
     public List<Matiere> getAllMatieres() {
+        System.out.println("hayder");
         return matiereService.getAllMatieres();
     }
 

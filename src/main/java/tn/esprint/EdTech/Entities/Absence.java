@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import tn.esprint.EdTech.Entities.Keys.AbsenceKey;
-import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 
 @Entity
 @AllArgsConstructor
