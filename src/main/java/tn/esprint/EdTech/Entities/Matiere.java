@@ -25,6 +25,12 @@ public class Matiere {
     @JsonIgnore
     private Set<Examen> examens;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+     @JoinTable(
+    name = "matiere_utilisateur",
+    joinColumns = @JoinColumn(name = "matiere_id"),
+    inverseJoinColumns = @JoinColumn(name = "utilisateur_id")
+    )
+
     private Set<Utilisateur> enseignants;
 }

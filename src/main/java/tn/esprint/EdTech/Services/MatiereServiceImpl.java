@@ -39,4 +39,9 @@ public class MatiereServiceImpl implements MatiereService {
         Matiere matiere = matiereRepository.findById(id).orElseThrow(() -> new RuntimeException("Matiere not found"));
         matiereRepository.delete(matiere);
     }
+
+    @Override
+    public List<Matiere> getMatieresByUtilisateurId(Long userId) {
+      return matiereRepository.findMatieresByUtilisateurId(userId);
+    }
 }
