@@ -1,7 +1,7 @@
 package tn.esprint.EdTech.Services;
 
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.http.Method;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -98,4 +98,38 @@ public class ExamenService implements IExamenService{
         examen.setTravail(filename);
         return examenRepository.save(examen);
     }
+
+
+@Override
+    public String getDownloadLink(Long examenId) {
+        Examen examen = examenRepository.findById(examenId)
+                .orElseThrow(() -> new RuntimeException("Examen not found with id " + examenId));
+
+        String objectName = examen.getEnonce();
+
+        try {
+            StatObjectResponse stat = minioClient.statObject(
+                    StatObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .build()
+            );
+
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .method(Method.GET)
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Error getting download link from Minio", e);
+        }
+    }
+
 }
+
+
+
+
+

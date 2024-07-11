@@ -1,5 +1,7 @@
 package tn.esprint.EdTech.Services;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import tn.esprint.EdTech.Entities.Examen;
 
@@ -25,4 +27,6 @@ public interface IExamenService {
     void deleteExam(Long id);
 
     Examen uploadFile(Long examenId, MultipartFile file) throws IOException;
+
+    String getDownloadLink(Long examenId);
 }

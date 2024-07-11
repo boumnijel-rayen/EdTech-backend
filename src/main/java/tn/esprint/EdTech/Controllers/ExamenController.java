@@ -80,4 +80,13 @@ public class ExamenController {
         }
 
     }
+    @GetMapping("/{id}/download-link")
+    public ResponseEntity<String> getDownloadLink(@PathVariable Long id) {
+        try {
+            String downloadLink = examenService.getDownloadLink(id);
+            return ResponseEntity.ok(downloadLink);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
