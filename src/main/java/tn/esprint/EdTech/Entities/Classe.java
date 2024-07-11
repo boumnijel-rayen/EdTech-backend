@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Classe {
     private int nbreEtudiant;
     private int nbreCapacite;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
+    @JsonManagedReference
     private Set<Utilisateur> etudiants;
     @ManyToOne
     private Niveau niveau;

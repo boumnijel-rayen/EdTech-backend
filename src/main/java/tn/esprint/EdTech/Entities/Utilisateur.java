@@ -1,5 +1,6 @@
 package tn.esprint.EdTech.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,6 +44,8 @@ public class Utilisateur implements UserDetails {
     private Set<Matiere> matieres;
 
     @ManyToOne
+    @JsonBackReference
+
     private Classe classe;
 
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)

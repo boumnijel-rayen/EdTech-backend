@@ -43,4 +43,9 @@ public class MatiereController {
         matiereService.deleteMatiere(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/byUtilisateur/{userId}")
+    public List<Matiere> getMatieresByUtilisateurId(@PathVariable Long userId) {
+      return matiereService.getMatieresByUtilisateurId(userId);
+    }
 }
