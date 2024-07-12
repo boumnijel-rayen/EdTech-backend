@@ -42,4 +42,9 @@ public class ClasseController {
         classeService.deleteClasse(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/classeByEnsg/{id}")
+    public List<Classe> getAllClassesByEnsg(@PathVariable long id) {
+        return classeService.getAllClassesByEnsg(id);
+    }
 }

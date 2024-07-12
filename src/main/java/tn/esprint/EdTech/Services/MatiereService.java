@@ -11,4 +11,5 @@ public interface MatiereService {
     Matiere createMatiere(Matiere matiere);
     Matiere updateMatiere(Matiere matiere);
     void deleteMatiere(Long id);
+    List<Matiere> getAllMatieresByEnsg (long id);
 }

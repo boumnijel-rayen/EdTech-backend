@@ -2,19 +2,28 @@ package tn.esprint.EdTech.Controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import tn.esprint.EdTech.Entities.Absence;
+import tn.esprint.EdTech.Entities.Classe;
+import tn.esprint.EdTech.Entities.Etat;
 import tn.esprint.EdTech.Entities.Utilisateur;
+import tn.esprint.EdTech.Repositories.ClasseRepo;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
+import tn.esprint.EdTech.Services.IAbsenceService;
 import tn.esprint.EdTech.Services.IUtilisateurService;
 import tn.esprint.EdTech.Services.UtilisateurServiceImpl;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UtilisateurController {
     IUtilisateurService utilisateurService;
+    ClasseRepo classeRepo;
 
     @PostMapping("/save")
     public Utilisateur SaveUser(@RequestBody Utilisateur utilisateur) {
@@ -39,5 +48,10 @@ public class UtilisateurController {
     @GetMapping("/getall")
     public Collection<Utilisateur> GetAllUsers() {
         return utilisateurService.getAllUsers();
+    }
+
+    @GetMapping("/getAllStudents/{className}")
+    public List<Utilisateur> getAllStudents(@PathVariable String className) {
+        return utilisateurService.getAllStudents(className);
     }
 }

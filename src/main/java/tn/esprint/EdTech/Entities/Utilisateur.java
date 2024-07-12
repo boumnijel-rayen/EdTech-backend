@@ -33,7 +33,7 @@ public class Utilisateur implements UserDetails {
     @JsonIgnore
     private Set<Examen> examens;
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Absence> absences;
 

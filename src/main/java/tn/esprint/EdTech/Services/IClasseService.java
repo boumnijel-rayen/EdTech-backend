@@ -12,5 +12,6 @@ public interface IClasseService {
   Classe createClasse(Classe classe);
   Classe updateClasse(Classe classe);
   void deleteClasse(Long id);
+  List<Classe> getAllClassesByEnsg (long id);
 
 }

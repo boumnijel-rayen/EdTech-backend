@@ -39,4 +39,9 @@ public class ClasseServiceImpl implements IClasseService {
         Classe classe = classeRepository.findById(id).orElseThrow(() -> new RuntimeException("Classe not found"));
         classeRepository.delete(classe);
     }
+
+    @Override
+    public List<Classe> getAllClassesByEnsg(long id) {
+        return classeRepository.findClassesByEnseignantId(id);
+    }
 }

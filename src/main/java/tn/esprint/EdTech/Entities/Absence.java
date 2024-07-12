@@ -8,6 +8,8 @@ import lombok.Setter;
 import tn.esprint.EdTech.Entities.Keys.AbsenceKey;
 import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 
+import java.time.LocalDate;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,13 +18,13 @@ import tn.esprint.EdTech.Entities.Keys.ExamenKey;
 public class Absence {
     @EmbeddedId
     private AbsenceKey id_abs;
-    private String etat;
-
+    @Enumerated(EnumType.STRING)
+    private Etat etat;
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_user")
     private Utilisateur etudiant;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("id_mat")
     private Matiere matiere;
+    private LocalDate date;
 }

@@ -42,4 +42,9 @@ public class MatiereController {
         matiereService.deleteMatiere(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/allMatieresByEnsg/{id}")
+    public List<Matiere> getAllMatieresByEnsg(@PathVariable long id) {
+        return matiereService.getAllMatieresByEnsg(id);
+    }
 }
