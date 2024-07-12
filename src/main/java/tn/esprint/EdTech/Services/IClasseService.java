@@ -14,5 +14,5 @@ public interface IClasseService {
   void deleteClasse(Long id);
   Classe addEtudiantToClasse(Long classeId, String email);
   Classe removeEtudiantFromClasse(Long classeId, String email);
-
+  void rebalanceClasses();
 }

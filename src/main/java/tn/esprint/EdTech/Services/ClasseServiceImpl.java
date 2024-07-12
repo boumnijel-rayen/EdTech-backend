@@ -84,4 +84,32 @@ public class ClasseServiceImpl implements IClasseService {
       throw new ResourceNotFoundException("Etudiant not found in the specified classe");
     }
   }
+
+
+  @Override
+  public void rebalanceClasses() {
+    List<Classe> classes = classeRepository.findAll();
+
+    if (classes.isEmpty()) return;
+
+    classes.sort((c1, c2) -> c2.getNbreEtudiant() - c1.getNbreEtudiant());
+    Classe largestClass = classes.get(0);
+
+    for (int i = 1; i < classes.size(); i++) {
+      Classe currentClass = classes.get(i);
+      while (largestClass.getNbreEtudiant() - currentClass.getNbreEtudiant() > 3) {
+        Utilisateur studentToMove = largestClass.getEtudiants().iterator().next();
+        largestClass.getEtudiants().remove(studentToMove);
+        studentToMove.setClasse(currentClass);
+        currentClass.getEtudiants().add(studentToMove);
+
+        utilisateurRepository.save(studentToMove);
+        classeRepository.save(largestClass);
+        classeRepository.save(currentClass);
+
+        largestClass = classeRepository.findById(largestClass.getId()).orElseThrow();
+        currentClass = classeRepository.findById(currentClass.getId()).orElseThrow();
+      }
+    }
+  }
 }

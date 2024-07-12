@@ -12,13 +12,13 @@ import java.util.List;
 @RequestMapping("/api/classes")
 public class ClasseController {
 
-    @Autowired
-    private IClasseService classeService;
+  @Autowired
+  private IClasseService classeService;
 
-    @GetMapping("/all")
-    public List<Classe> getAllClasses() {
-        return classeService.getAllClasses();
-    }
+  @GetMapping("/all")
+  public List<Classe> getAllClasses() {
+    return classeService.getAllClasses();
+  }
   @PutMapping("/{classeId}/add-etudiant/{email}")
   public ResponseEntity<Classe> addEtudiantToClasse(@PathVariable Long classeId, @PathVariable String email) {
     Classe updatedClasse = classeService.addEtudiantToClasse(classeId, email);
@@ -30,26 +30,33 @@ public class ClasseController {
     return ResponseEntity.ok(updatedClasse);
   }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
-        Classe classe = classeService.getClasseById(id).orElseThrow(() -> new RuntimeException("Classe not found"));
-        return ResponseEntity.ok(classe);
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
+    Classe classe = classeService.getClasseById(id).orElseThrow(() -> new RuntimeException("Classe not found"));
+    return ResponseEntity.ok(classe);
+  }
 
-    @PostMapping
-    public Classe createClasse(@RequestBody Classe classe) {
-        return classeService.createClasse(classe);
-    }
+  @PostMapping
+  public Classe createClasse(@RequestBody Classe classe) {
+    return classeService.createClasse(classe);
+  }
 
-    @PutMapping("update/{id}")
-    public Classe updateClasse(@PathVariable("id") Long id, @RequestBody Classe classe) {
-        classe.setId(id);
-        return classeService.updateClasse(classe);
-    }
+  @PutMapping("update/{id}")
+  public Classe updateClasse(@PathVariable("id") Long id, @RequestBody Classe classe) {
+    classe.setId(id);
+    return classeService.updateClasse(classe);
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClasse(@PathVariable Long id) {
-        classeService.deleteClasse(id);
-        return ResponseEntity.noContent().build();
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteClasse(@PathVariable Long id) {
+    classeService.deleteClasse(id);
+    return ResponseEntity.noContent().build();
+  }
+
+
+  @PutMapping("/rebalance")
+  public ResponseEntity<Void> rebalanceClasses() {
+    classeService.rebalanceClasses();
+    return ResponseEntity.ok().build();
+  }
 }

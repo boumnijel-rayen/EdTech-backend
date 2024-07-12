@@ -15,16 +15,16 @@ import java.util.Set;
 @Getter
 @Setter
 public class Classe {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nom;
-    private String specialite;
-    private int nbreEtudiant;
-    private int nbreCapacite;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
-    @JsonManagedReference
-    private Set<Utilisateur> etudiants;
-    @ManyToOne
-    private Niveau niveau;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+  private String nom;
+  private String specialite;
+  private int nbreEtudiant;
+  private int nbreCapacite;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
+  @JsonManagedReference
+  private Set<Utilisateur> etudiants;
+  @ManyToOne
+  private Niveau niveau;
 }

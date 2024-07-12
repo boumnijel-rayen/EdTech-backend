@@ -30,7 +30,12 @@ public class SecurityConfig{
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
             "/api/classes/**",
-            "/user/**",};
+            "/user/**",
+            "/api/matieres/**",
+            "/rdv/**",
+            "/niveaux/**",
+
+    };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 

@@ -18,78 +18,81 @@ import java.util.stream.Collectors;
 @Setter
 @Builder
 public class Utilisateur implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nom;
-    private String prenom;
-    private String email;
-    private String password;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    private Set<Role> roles;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+  private String nom;
+  private String prenom;
+  private String email;
+  private String password;
+  @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+  private Set<Role> roles;
 
-    @OneToMany(mappedBy = "etudiant")
-    @JsonIgnore
-    private Set<Examen> examens;
+  @OneToMany(mappedBy = "etudiant")
+  @JsonIgnore
+  private Set<Examen> examens;
 
-    @OneToMany(mappedBy = "etudiant")
-    @JsonIgnore
-    private Set<Absence> absences;
+  @OneToMany(mappedBy = "etudiant")
+  @JsonIgnore
+  private Set<Absence> absences;
 
-    @ManyToMany(mappedBy = "enseignants", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Matiere> matieres;
+  @ManyToMany(mappedBy = "enseignants", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<Matiere> matieres;
 
-    @ManyToOne
-    @JsonBackReference
+  @ManyToOne
+  @JsonBackReference
+  private Classe classe;
 
-    private Classe classe;
+  @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<RendezVous> RendezvousValides;
 
-    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<RendezVous> RendezvousValides;
+  @OneToMany(mappedBy = "validateur", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<RendezVous> RendezvousPasses;
 
-    @OneToMany(mappedBy = "validateur", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<RendezVous> RendezvousPasses;
+  @OneToMany(mappedBy = "utilisateur")
+  @JsonIgnore
+  private Set<DemandeMenu> demandesMenu;
 
-    @OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
-    private Set<DemandeMenu> demandesMenu;
+  @OneToMany(mappedBy = "utilisateur")
+  @JsonIgnore
+  private Set<ParticipationReunion> reunions;
 
-    @OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
-    private Set<ParticipationReunion> reunions;
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return roles.stream()
+      .map(role -> new SimpleGrantedAuthority(role.name()))
+      .collect(Collectors.toList());
+  }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
-    }
+  @Override
+  public String getUsername() {
+    return email;
+  }
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+  public void setMatieres(Set<Matiere> matieres) {
+    this.matieres = matieres;
+  }
 }
