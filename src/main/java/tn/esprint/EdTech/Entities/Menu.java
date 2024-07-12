@@ -33,4 +33,6 @@ public class Menu {
             inverseJoinColumns = @JoinColumn(name = "repas_id")
     )
     private Set<Repas> repas;
+    private String Id_User;
+
 }

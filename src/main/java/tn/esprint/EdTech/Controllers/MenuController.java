@@ -3,8 +3,10 @@ package tn.esprint.EdTech.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprint.EdTech.Entities.Menu;
+import tn.esprint.EdTech.Entities.Repas;
 import tn.esprint.EdTech.Services.IMenuService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,12 @@ public class MenuController {
         public void deleteMenu(@PathVariable Long id) {
             menuService.deleteMenu(id);
         }
+        @GetMapping("/GetAllRepasUsed/{date}")
+        List<Repas> GetAllRepasUsed(@PathVariable LocalDate date){
+            return  menuService.GetAllRepasUsed(date);
+        }
+
+
     }
 
 

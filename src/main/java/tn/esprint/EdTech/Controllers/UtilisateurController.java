@@ -40,4 +40,8 @@ public class UtilisateurController {
     public Collection<Utilisateur> GetAllUsers() {
         return utilisateurService.getAllUsers();
     }
+    @GetMapping("/GetMail/{mail}")
+    public Utilisateur GetAllUsers(@PathVariable String mail) {
+        return utilisateurService.FindUserByEmail(mail);
+    }
 }

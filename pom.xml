@@ -97,6 +97,11 @@
 			<artifactId>jakarta.mail</artifactId>
 			<version>1.6.7</version>
 		</dependency>
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.0.3</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

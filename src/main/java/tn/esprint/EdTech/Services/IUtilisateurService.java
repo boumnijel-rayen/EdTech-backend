@@ -11,4 +11,5 @@ public interface IUtilisateurService {
     public Utilisateur getUser(long id);
     public List<Utilisateur> getAllUsers();
     public List<Utilisateur> getUsersExceptVisitors();
+    public Utilisateur FindUserByEmail(String mail);
 }

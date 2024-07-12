@@ -1,7 +1,6 @@
 package tn.esprint.EdTech.Services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
@@ -42,5 +41,9 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
     @Override
     public List<Utilisateur> getUsersExceptVisitors() {
         return List.of();
+    }
+    @Override
+    public Utilisateur FindUserByEmail(String mail) {
+        return utilisateurRepo.findByEmail(mail).get();
     }
 }

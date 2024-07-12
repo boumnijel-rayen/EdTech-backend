@@ -42,3 +42,8 @@ application:
       photos-output-path: ./uploads
 server:
   port: 8089
+minio:
+  url: http://127.0.0.1:9001
+  access-key: jjitW8fCbWisrPclSlCc
+  secret-key: ktRnLKZY1ZWX3GpsLHnkDzr7jkNI50VHonsHTF9u
+  bucket-name: restaurant
