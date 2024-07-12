@@ -40,7 +40,9 @@ public class SecurityConfig {
             "/rdv/update",
             "/rdv/delete/{id}",
             "/rdv/{id}/status",
-            "/rdv/save"
+            "/rdv/save",
+            "/rdv/rendezvous/status-count",
+            "/rdv/rendezvous/total-count"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -70,6 +72,15 @@ public class SecurityConfig {
                                 .requestMatchers(DELETE, "/user/delete/**").hasAnyAuthority("ETUDIANT")
                                 .requestMatchers(GET, "/user/getall").hasAnyAuthority("ADMIN","ETUDIANT")
                                 .requestMatchers(PUT, "/user/update").hasAnyAuthority("ADMIN", "ENSEIGNANT")
+                                .requestMatchers(GET, "/rdv/getall").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET, " /user/getallenseignants").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET, "/user/getallstudents").hasAnyAuthority("ADMIN")
+                                .requestMatchers(PUT, "/rdv/update").hasAnyAuthority("ADMIN")
+                                .requestMatchers(DELETE, "/rdv/delete/{id}").hasAnyAuthority("ADMIN")
+                                .requestMatchers(PUT, "/rdv/{id}/status").hasAnyAuthority("ADMIN")
+                                .requestMatchers(POST, "/rdv/save").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET, "rdv/rendezvous/status-count").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET, "/rdv/rendezvous/total-count").hasAnyAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )

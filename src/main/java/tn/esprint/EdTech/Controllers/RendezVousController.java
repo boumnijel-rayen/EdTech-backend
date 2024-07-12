@@ -13,6 +13,8 @@ import tn.esprint.EdTech.Services.RendezVousServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Map;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/rdv")
@@ -57,5 +59,13 @@ public class RendezVousController {
     @PutMapping("/{id}/status")
     public void updateStatus(@PathVariable Long id, @RequestParam Status status) {
         rendezVousService.updateStatus(id, status);
+    }
+    @GetMapping("/rendezvous/status-count")
+    public Map<Status, Long> getRendezVousCountByStatus() {
+        return rendezVousService.getRendezVousCountByStatus();
+    }
+    @GetMapping("/rendezvous/total-count")
+    public long getTotalRendezVousCount() {
+        return rendezVousService.getTotalRendezVousCount();
     }
 }

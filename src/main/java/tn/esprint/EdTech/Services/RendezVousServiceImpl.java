@@ -1,6 +1,7 @@
 package tn.esprint.EdTech.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprint.EdTech.Entities.RendezVous;
 import tn.esprint.EdTech.Entities.Status;
@@ -8,7 +9,10 @@ import tn.esprint.EdTech.Entities.Utilisateur;
 import tn.esprint.EdTech.Repositories.RendezVousRepo;
 import tn.esprint.EdTech.Repositories.UtilisateurRepo;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class RendezVousServiceImpl  implements IRendezVousService{
@@ -58,6 +62,31 @@ public class RendezVousServiceImpl  implements IRendezVousService{
         assert rendezVous != null;
         rendezVous.setStatut(status);
         rendezVousRepo.save(rendezVous);
+    }
+    @Scheduled(fixedRate = 30000)  // 60000 milliseconds = 1 minute
+    public void updateRendezVousStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        List<RendezVous> rendezVousList = rendezVousRepo.findAll();
+        for (RendezVous rendezVous : rendezVousList) {
+            if (rendezVous.getStatut() == Status.EN_ATTENTE && !rendezVous.getStartTime().isAfter(now)) {
+                rendezVous.setStatut(Status.EN_COURS);
+                rendezVousRepo.save(rendezVous);
+            } else if (rendezVous.getStatut() == Status.EN_COURS && !rendezVous.getEndTime().isAfter(now)) {
+                rendezVous.setStatut(Status.TERMINE);
+                rendezVousRepo.save(rendezVous);
+            }
+        }
+    }
+
+    @Override
+    public Map<Status, Long> getRendezVousCountByStatus() {
+        List<RendezVous> rendezVousList = rendezVousRepo.findAll();
+        return rendezVousList.stream()
+                .collect(Collectors.groupingBy(RendezVous::getStatut, Collectors.counting()));
+    }
+    @Override
+    public long getTotalRendezVousCount() {
+        return rendezVousRepo.count();
     }
 
 }

@@ -26,16 +26,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String[] WHITE_LIST_URL = {"/api/auth/login",
             "/api/auth/register",
             "/api/auth/activate/**",
-            "/rdv/getall",
-            "/user/getallenseignants",
-            "/user/getallstudents",
             "/user/getall",
-            "/rdv/{id}/status",
             "/event/save",
-            "/rdv/update",
-            "/rdv/delete/{id}",
-            "/rdv/{id}/status",
-            "/rdv/save"
     };
 
     @Override

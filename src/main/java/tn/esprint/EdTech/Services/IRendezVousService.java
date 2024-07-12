@@ -5,6 +5,7 @@ import tn.esprint.EdTech.Entities.Role;
 import tn.esprint.EdTech.Entities.Status;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IRendezVousService {
     public RendezVous addRdv(RendezVous rdv);
@@ -13,4 +14,8 @@ public interface IRendezVousService {
     public RendezVous getRdv(long id);
     public List<RendezVous> getAllRdvs();
     void updateStatus(Long id, Status status);
+
+    Map<Status, Long> getRendezVousCountByStatus();
+
+    long getTotalRendezVousCount();
 }
