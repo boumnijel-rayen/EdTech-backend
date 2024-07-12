@@ -7,10 +7,8 @@ import tn.esprint.EdTech.Entities.Repas;
 import tn.esprint.EdTech.Repositories.MenuRepo;
 import tn.esprint.EdTech.Repositories.RepasRepo;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class IMenuImpl implements IMenuService{
@@ -48,5 +46,16 @@ public class IMenuImpl implements IMenuService{
     @Override
     public void deleteMenu(Long id) {
         menuRepository.deleteById(id);
+    }
+    @Override
+    public List<Repas>  GetAllRepasUsed(LocalDate date) {
+     List<Menu> menus= menuRepository.findAllByDate(date);
+        List<Repas> allRepas = new ArrayList<>();
+
+        for (Menu menu : menus) {
+            allRepas.addAll(menu.getRepas());
+        }
+
+        return new ArrayList<>(allRepas);
     }
 }

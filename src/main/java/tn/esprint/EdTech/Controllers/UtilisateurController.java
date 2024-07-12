@@ -82,5 +82,8 @@ public class UtilisateurController {
     public Chart GetValisationStats(){
         return utilisateurService.GetValisationStats();
     }
-
+    @GetMapping("/GetMail/{mail}")
+    public Utilisateur GetAllUsers(@PathVariable String mail) {
+        return utilisateurService.FindUserByEmail(mail);
+    }
 }

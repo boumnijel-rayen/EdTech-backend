@@ -24,7 +24,6 @@ public class Repas {
     private double poidsCarbs;
     private double poidsProteines;
     private double poidsFats;
-    @Lob
-    private byte[] image;
+    private String image;
 
 }

@@ -167,4 +167,9 @@ public class UtilisateurServiceImpl implements IUtilisateurService{
 
         return chart;
     }
+
+    @Override
+    public Utilisateur FindUserByEmail(String mail) {
+        return utilisateurRepo.findByEmail(mail).get();
+    }
 }

@@ -45,8 +45,7 @@ public class SecurityConfig {
             "/rdv/save",
             "/api/matieres/**",
             "/api/exams/**",
-            "/api/classes/**",
-            "/user/**"
+            "/api/classes/**"
     };
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
@@ -87,6 +86,11 @@ public class SecurityConfig {
                                 .requestMatchers(GET, "/user/stats/userStatus").hasAnyAuthority("ADMIN")
                                 .requestMatchers(GET, "/user/stats/validStats").hasAnyAuthority("ADMIN")
                                 .requestMatchers(GET, "/user/stats/createStats").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET,"/repas/all").hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT")
+                                .requestMatchers(POST,"/repas/AddRepas").hasAnyAuthority("ADMIN")
+                                .requestMatchers(GET,"/user/GetMail/**").hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT")
+                                .requestMatchers(POST,"/menus/addmenu").hasAnyAuthority("ADMIN","ETUDIANT","ENSEIGNANT")
+                                .requestMatchers(GET,"/menus/GetAllRepasUsed/**").hasAnyAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )

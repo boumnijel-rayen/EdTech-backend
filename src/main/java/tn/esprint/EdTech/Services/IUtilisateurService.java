@@ -22,4 +22,5 @@ public interface IUtilisateurService {
     public Utilisateur Activer(long id);
     public userStatus getUserStatus();
     public Chart GetValisationStats();
+    public Utilisateur FindUserByEmail(String mail);
 }
